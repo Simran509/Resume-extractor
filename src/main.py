@@ -1,45 +1,11 @@
-"""
-  Resume Extractor App:
-
-  This application can be used to extract the resumes from a csv file and store the same in a zip file
-  Please note that the following conditions must hold:
-  1) The program can only read csv file.
-  2) The csv file must have all the resume links under a column header : "resume".
-
-"""
-
-# 
-# import subprocess
-
-# # Install dependencies
-# bashCommand = "pip install -r requirements.txt"
-# process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-# output, error = process.communicate()
-
-"""
-  Imports
-"""
-
-# To interact with csv file
 import pandas as pd
 import os
-# To fetch URL data
 import urllib.request
-
-# For GUI Interface to get files path (Select csv file)
 from getFilePath import App 
-
-# For Progress bar effect
 from tqdm import tqdm
 from time import sleep
-
-# For Zipping Files
 import shutil
-
-# For logging
 import logging
-
-# for opening the log file at the end
 import webbrowser
 
 """Global Variables"""
@@ -101,7 +67,7 @@ def getFileName(row, nameListEnum, rollListEnum):
   fileNames.append(rollNo)
   # Create fileName from name and roll number seperated by _
   fileName = "_".join(fileNames)
-  # fileName = fileName + "_Delhi_Technological_University_2022";
+  # fileName = fileName + "_TIET_2024";
   return fileName
 
 """ Fetch Resume from the URL """
@@ -113,13 +79,7 @@ def fetchURLData(url, fileName, ResumeFolder):
     return fileName
 
 def ResumeZIPGenerator(applicationList, nameList, rollNumberColumn, resumeColumn, ResumeFolder,parentFolder):
-  '''
-    applicationList: string -> Path containing the applications file (.csv)
-    nameList: list of strings-> An ordered list of the column names which are to be included in the Resume name
-    resumeColumn: string -> Column name containing the resume links of the students
-    ResumeFolder: string -> Directory to store all the resumes
-    Downloads all the resumes in the chosen naming convention in a zip file.
-  '''
+
   
   try: 
     createFolder(ResumeFolder)
@@ -179,7 +139,7 @@ def ResumeZIPGenerator(applicationList, nameList, rollNumberColumn, resumeColumn
       logging.critical(e)
 
   print('[INFO] Extraction complete. Zipping the resume folder')
-  # logging.info("Extraction complete. Zipping the resume folder")
+  logging.info("Extraction complete. Zipping the resume folder")
   shutil.make_archive(ResumeFolder, 'zip', ResumeFolder)
 
   # Open the final report document
@@ -207,5 +167,5 @@ if __name__ == '__main__':
   parentFolder=nap.getDirectoryPath()
   logFilePath=parentFolder+"\\"+JobProfileName+"\\"+JobProfileName+'.log'
 
-  ResumeFolder=parentFolder+"\\"+JobProfileName+"\\DTU_"+JobProfileName +"_Resumes"
+  ResumeFolder=parentFolder+"\\"+JobProfileName+"\\TIET_"+JobProfileName +"_Resumes"
   ResumeZIPGenerator(applicationList, nameList, rollNumberColumn, resumeColumn, ResumeFolder,parentFolder)
