@@ -1,55 +1,54 @@
-from inspect import getfile
 import tkinter as tk
-
 from tkinter import filedialog
-from tkinter.filedialog import askopenfile
 
-class App(tk.Tk):
+class App:
     def __init__(self):
-        tk.Tk.__init__(self) # create window
-        self.filename = "" # variable to store filename
-        self.directoryName=""
+        self.filename = ""  # Variable to store filename
+        self.directoryName = ""
+        self.create_csv_window()
 
-        self.title("Resume Extractor")
-        self.geometry("500x250")
-        label = tk.Label(self, text="Click the Button to browse the CSV File", font=('Georgia 13'))
-        label.pack(pady=10)
-        tk.Button(self, text='Browse', command=self.openfile).pack()
-        self.mainloop()
-
-        tk.Tk.__init__(self) # create window
-        self.title("Resume Extractor")
-        self.geometry("500x250")
-        label = tk.Label(self, text="Save the Resume Zip File in: (Select Folder)", font=('Georgia 13'))
-        label.pack(pady=10)
-        tk.Button(self, text='Browse', command=self.getDirectory).pack()
-        self.mainloop()
+    def create_csv_window(self):
+        self.csv_window = tk.Tk()  # Create a new window for the CSV file selection
+        self.csv_window.title("Select CSV File")
+        self.csv_window.geometry("500x250")
         
+        label = tk.Label(self.csv_window, text="Click the Button to browse the CSV File", font=('Georgia', 13))
+        label.pack(pady=10)
+        
+        tk.Button(self.csv_window, text='Browse CSV', command=self.openfile).pack(pady=10)
+
+        self.csv_window.mainloop()
 
     def openfile(self):
-        self.filename =filedialog.askopenfile(title="open file", mode='r', filetypes=[('csv files', '*.csv'),])
-        self.destroy()
+        file = filedialog.askopenfile(title="Open CSV File", mode='r', filetypes=[('CSV files', '*.csv')])
+        if file:
+            self.filename = file.name
+            print(f"Selected CSV File: {self.filename}")  # Feedback to user
+            self.csv_window.destroy()  # Close the CSV selection window
+            self.create_directory_window()  # Open the next window for directory selection
+
+    def create_directory_window(self):
+        self.dir_window = tk.Tk()  # Create a new window for directory selection
+        self.dir_window.title("Select Output Directory")
+        self.dir_window.geometry("500x250")
         
+        label = tk.Label(self.dir_window, text="Select Folder to Save the Resume Zip File:", font=('Georgia', 13))
+        label.pack(pady=10)
+        
+        tk.Button(self.dir_window, text='Browse Directory', command=self.getDirectory).pack(pady=10)
+
     def getDirectory(self):
-        # get a directory path by user
-        self.directoryName=filepath=filedialog.askdirectory(initialdir=r"",
-                                        title="Dialog box")
-        label_path=tk.Label(self,text=filepath,font=('italic 14'))
-        label_path.pack(pady=20)
-        self.destroy()
-
-
-    def getDirectoryPath(self):
-        return(self.directoryName)
+        self.directoryName = filedialog.askdirectory(title="Select Output Directory")
+        if self.directoryName:
+            print(f"Selected Directory: {self.directoryName}")  # Feedback to user
+            self.dir_window.destroy()  # Close the directory selection window
 
     def getFilePath(self):
-        return(self.filename.name)
-  
-# #  FOR TESTING
-# nap=App()
+        return self.filename
 
-# ResumeFolder=nap.getFilePath()
-# print(ResumeFolder)
+    def getDirectoryPath(self):
+        return self.directoryName
 
-# ResumeFolder=nap.getDirectoryPath()
-# print(ResumeFolder)
+# Testing (if needed, comment out in actual usage)
+#if __name__ == '__main__':
+#    app = App()
