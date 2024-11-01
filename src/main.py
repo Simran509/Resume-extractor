@@ -79,17 +79,16 @@ def fetchURLData(url, fileName, ResumeFolder):
 def ResumeZIPGenerator(applicationList, nameList, rollNumberColumn, resumeColumn, ResumeFolder,parentFolder):
 
   
+  logging.basicConfig(filename=logFilePath, filemode='w', 
+      level=logging.DEBUG,
+    format='%(levelname)s : %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S')
   try: 
     createFolder(ResumeFolder)
   except Exception as e:
     logging.info("Folder already created")
 
 
-  logging.basicConfig(filename=logFilePath, filemode='w', 
-      level=logging.DEBUG,
-      # %(asctime)s.%(msecs)03d 
-    format='%(levelname)s : %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S')
   
   df = pd.read_csv(applicationList,encoding='Latin-1')
   print("File Path is correct")
