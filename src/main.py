@@ -157,5 +157,5 @@ if __name__ == '__main__':
   ResumeZIPGenerator(applicationList, nameList, rollNumberColumn, resumeColumn, ResumeFolder,parentFolder)
   print('Opening the parent Folder and Log file in explorer in 2 sec.')
   print("===========================================================")
-  os.system('start '+ parentFolder+"\\"+JobProfileName)
+  os.system('start '+ ResumeFolder)
   webbrowser.open(logFilePath)
