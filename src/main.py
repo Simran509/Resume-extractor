@@ -131,21 +131,12 @@ def ResumeZIPGenerator(applicationList, nameList, rollNumberColumn, resumeColumn
     print("The Resumes couldn't be fetched for the following students: CHECK LOG file ")
     logging.critical("The Resumes couldn't be fetched for the following students: ")
     for e in exception:
-      # Print exceptions to the log file
       print(e)
       logging.critical(e)
 
   print('[INFO] Extraction complete. Zipping the resume folder')
   logging.info("Extraction complete. Zipping the resume folder")
   shutil.make_archive(ResumeFolder, 'zip', ResumeFolder)
-
-  # Open the final report document
-
-  print('Opening the parent Folder and Log file in explorer in 2 sec.')
-  print("===========================================================")
-  os.system('start '+ parentFolder+"\\"+JobProfileName)
-
-  webbrowser.open(logFilePath)
 
 
 if __name__ == '__main__':
@@ -164,3 +155,7 @@ if __name__ == '__main__':
 
   ResumeFolder=parentFolder+"\\"+JobProfileName+"\\TIET_"+JobProfileName +"_Resumes"
   ResumeZIPGenerator(applicationList, nameList, rollNumberColumn, resumeColumn, ResumeFolder,parentFolder)
+  print('Opening the parent Folder and Log file in explorer in 2 sec.')
+  print("===========================================================")
+  os.system('start '+ parentFolder+"\\"+JobProfileName)
+  webbrowser.open(logFilePath)
