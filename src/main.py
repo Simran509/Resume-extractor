@@ -55,7 +55,7 @@ def createResumeColumnEnum(columns, resumeColumn):
 
 """ 
   Make File name of each resume.pdf
-  Current Format: NAME_ROLL_NUMBER.pdf
+  Current Format: NAME_BATCH_ROLLNUMBER.pdf
 """
 def getFileName(row, nameListEnum, rollListEnum):
   fileNames = []
