@@ -16,12 +16,12 @@ def createFolder(ResumeFolder):
   path= ResumeFolder
   if(os.path.isdir(path)):
     print('\n[INFO] Folder with same name Found. Cleaning old files!')
-    # Remove already existing files in folder if folder exist
+    
     for f in os.listdir(path):
       os.remove(os.path.join(path, f))
     print('[INFO] Cleaning Done! Old Files removed from the Resume Folder.')
   else:
-      # Create the folder
+     
       os.makedirs(path,exist_ok=True)
       print('[INFO] Resume Folder Created')
 
@@ -62,12 +62,10 @@ def getFileName(row, nameListEnum, rollListEnum):
   for nameIndex in nameListEnum:
     name = "_".join(str(row[nameIndex]).upper().split(" "))
     fileNames.append(name)
-  # Insert Roll Number 
+  
   rollNo="_".join(str(row[rollListEnum]).upper().split("/"))
   fileNames.append(rollNo)
-  # Create fileName from name and roll number seperated by _
   fileName = "_".join(fileNames)
-  # fileName = fileName + "_TIET_2024";
   return fileName
 
 """ Fetch Resume from the URL """
@@ -160,8 +158,6 @@ if __name__ == '__main__':
   nameList = ['name']
   resumeColumn = "resume"
   rollNumberColumn = "rollno"
-  # isDrive = False
-  # Take resume folder name from the CSV File
   JobProfileName=(applicationList.split('/')[-1]).split('.')[0]
   JobProfileName=JobProfileName.replace(' ','_')
   parentFolder=nap.getDirectoryPath()
